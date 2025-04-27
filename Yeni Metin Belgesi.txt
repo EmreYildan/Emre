@@ -1,0 +1,66 @@
+1.ADIM :
+
+sudo apt update
+sudo apt install gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev xterm python3 python3-pip python3-pexpect python3-git python3-jinja2 libegl1-mesa python3-subunit mesa-common-dev zstd liblz4-tool
+
+gawk:
+wget:
+git-core:
+diffstat:
+unzip:
+
+2.ADIM:
+Yocto adında bir dizin oluşturarak içerisine kullanacağımız git klonlarımızı karışıklık olmaması için içine yazarız
+
+3.ADIM:
+
+1) Yocto projemizin ana kaynağını klonlayalım Yocto'nun sürüm isimleri vardır.Örneğin "mickladore ,dunfell ,styhead,walnascar,kirkstone" gibi. Projemizde kirkstone sürümünü kullanıyoruz:
+ 
+ a) git clone -b kirkstone https://git.yoctoproject.org/poky.git
+
+2) meta-qt5 katmanını klonlayalım:
+
+ b) git clone -b kirkstone https://github.com/meta-qt5/meta-qt5.git
+
+3) meta-openembedded katmanını klonlayalım:
+
+ c)git clone https://github.com/openembedded/meta-openembedded.git
+
+4.ADIM:  poky dizinimizde iken "source oe-init-build-env" komutu ile build dizinine geçtikten sonra "nano" komutunu kullanarak aşağıdaki dosyaların içeriklerine istediğimiz gibş ekleme çıkarma yapabiliriz
+
+A) conf/local.conf 
+
+EKLENENLER : 
+DISTRO_FEATURES:append = "qt5 opengl x11"
+IMAGE_INSTALL:append = "qtbase qtbasetools qtdeclarative qtquickcontrols2"
+
+B) conf/bblayers.conf
+
+İÇERİĞİ:
+
+BBLAYERS ?= "\
+/home/ee/yocto/poky/meta \
+/home/ee/yocto/poky/meta-poky \
+/home/ee/yocto/poky/meta-yocto-bsp \
+/home/ee/yocto/metaopenembedded/meta-oe\
+/home/ee/yocto/metaopenembedded/meta-python \
+/home/ee/yocto/metaopenembedded/meta-networking \
+/home/ee/yocto/metaopenembedded/meta-filesystems \
+/home/ee/yocto/meta-qt5\
+"
+NOTLAR:
+
+PREZİ İLE SUNUM HAZIRLANCAK 
+YOCTO NEDİR 
+POKY NEDİR 
+BİTBAKE NEDİR 
+METadata nedir
+KLONLAR NELERDİR NE İŞE YARAR
+CONF DOSYALARI NE İŞE YARAR ?
+source oe-init-build-env  NEDİR 
+
+
+git clone -b kirkstone https://github.com/meta-qt5/meta-qt5.git  *Bunu girebilmemiz için github hesabından token oluşturmamız lazım …
+
+git clone -b kirkstone git://github.com/meta-qt5/meta-qt5.git
+
